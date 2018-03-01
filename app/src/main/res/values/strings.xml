@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Beats Psychomotor</string>
+    <string name="login_button">Set Username</string>
+    <string name="start">Start</string>
+    <string name="usertext">Username : </string>
+    <string name="prompt_user">Set User ID</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="shared_key">BEATS2018</string>
+    <string name="USERNAME">_username</string>
+    <string name="ASSESSMENT_ID">_assessmentId</string>
+    <string name="TASK_ID">_taskId</string>
+    <string name="be_client">JOIN ROOM</string>
+    <string name="be_host">HOST ROOM</string>
+    <string name="dummy_user">Hi Dummy!</string>
+    <string name="changeuser">Change Username</string>
+    <string name="back">BACK</string>
+    <string name="exit">EXIT</string>
+    <string name="ok">OK</string>
+    <string name="timeout">YOUR TIME IS UP</string>
+    <string-array name="task_id">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+</resources>
