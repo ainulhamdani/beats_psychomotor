@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
@@ -43,7 +44,7 @@ public class AssessmentFragment extends Fragment {
     public static ClientHandler clientHandler;
     public static ServerHandler serverHandler;
     private TextView timer;
-    private final long time = 60000*3;
+    private final long time = (60000*2)+1000;
     private final String FORMAT = "%02d:%02d:%02d";
     TimeoutDialog timeoutDialog = new TimeoutDialog();
 
@@ -103,10 +104,48 @@ public class AssessmentFragment extends Fragment {
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+                Log.d(TAG, "onTick: time now "+millisUntilFinished);
+                if(millisUntilFinished<=61000&&millisUntilFinished>60000){
+                    MediaPlayer.create(getContext(), R.raw.m1).start();
+                }
+                if(millisUntilFinished<=31000&&millisUntilFinished>30000){
+                    MediaPlayer.create(getContext(), R.raw.s30).start();
+                }
+                if(millisUntilFinished<=11000&&millisUntilFinished>10000){
+                    MediaPlayer.create(getContext(), R.raw.s10).start();
+                }
+                if(millisUntilFinished<=10000&&millisUntilFinished>9000){
+                    MediaPlayer.create(getContext(), R.raw.s9).start();
+                }
+                if(millisUntilFinished<=9000&&millisUntilFinished>8000){
+                    MediaPlayer.create(getContext(), R.raw.s8).start();
+                }
+                if(millisUntilFinished<=8000&&millisUntilFinished>7000){
+                    MediaPlayer.create(getContext(), R.raw.s7).start();
+                }
+                if(millisUntilFinished<=7000&&millisUntilFinished>6000){
+                    MediaPlayer.create(getContext(), R.raw.s6).start();
+                }
+                if(millisUntilFinished<=6000&&millisUntilFinished>5000){
+                    MediaPlayer.create(getContext(), R.raw.s5).start();
+                }
+                if(millisUntilFinished<=5000&&millisUntilFinished>4000){
+                    MediaPlayer.create(getContext(), R.raw.s4).start();
+                }
+                if(millisUntilFinished<=4000&&millisUntilFinished>3000){
+                    MediaPlayer.create(getContext(), R.raw.s3).start();
+                }
+                if(millisUntilFinished<=3000&&millisUntilFinished>2000){
+                    MediaPlayer.create(getContext(), R.raw.s2).start();
+                }
+                if(millisUntilFinished<=2000&&millisUntilFinished>1000){
+                    MediaPlayer.create(getContext(), R.raw.s1).start();
+                }
             }
 
             public void onFinish() {
 //                paintView.setOnTouchListener(null);
+                MediaPlayer.create(getContext(), R.raw.end).start();
                 timer.setText("done!");
                 HostFragment.saveEndAssessment();
                 showNoticeDialog();
@@ -136,6 +175,8 @@ public class AssessmentFragment extends Fragment {
                 }
             }
         });
+        MediaPlayer.create(getContext(), R.raw.start).start();
+
         return rootView;
     }
 
