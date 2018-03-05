@@ -15,12 +15,14 @@ public class Assessment implements Serializable {
     public String assessmentName;
     public String senderUsername;
     public String coordinate;
+    public int taskId;
 
-    public Assessment(ArrayList<String> usernames, String gameName){
+    public Assessment(ArrayList<String> usernames, String gameName, int taskId){
         this.senderUsername = null;
         this.clients = new ArrayList();
         this.numberOfPlayer = usernames.size();
         this.assessmentName = gameName;
+        this.taskId = taskId;
         for (int i = 0; i < numberOfPlayer; i++) {
             clients.add(new Client(i + 1, usernames.get(i), true));
         }

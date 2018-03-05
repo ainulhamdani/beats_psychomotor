@@ -125,26 +125,6 @@ public class HostFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_main, container, false);
         TextView userName = (TextView)rootView.findViewById(R.id.h_user);
         assessmentText = (EditText)rootView.findViewById(R.id.assessmenttext);
-        taskList = (Spinner) rootView.findViewById(R.id.tasklist);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.task_id, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        String task_id = sharedPref.getString(getString(R.string.TASK_ID),"");
-        if(!task_id.equals("")){
-            final int _taskId = Integer.parseInt(task_id);
-            taskList.setAdapter(adapter);
-            taskList.post(new Runnable() {
-                @Override
-                public void run() {
-                    taskList.setSelection(_taskId,true);
-                }
-            });
-            taskList.animate();
-            int _taskId2 = _taskId+1;
-            taskId = String.valueOf(_taskId2);
-        }else{
-            taskList.setAdapter(adapter);
-        }
         String _assessmentId = sharedPref.getString(getString(R.string.ASSESSMENT_ID),"");
         if(!_assessmentId.equals("")){
             assessmentText.setText(_assessmentId);
@@ -168,7 +148,7 @@ public class HostFragment extends Fragment {
                 editor.putString(getString(R.string.ASSESSMENT_ID),assessmentId);
                 editor.putString(getString(R.string.TASK_ID),taskId);
                 editor.commit();
-                gameObject = new Assessment(deviceList,"Psychomotor");
+                gameObject = new Assessment(deviceList,"Psychomotor",Integer.parseInt(taskId));
                 gameObject.senderUsername = String.valueOf(Constants.NEW_GAME);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("game",gameObject);
@@ -199,6 +179,26 @@ public class HostFragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
+
+        taskList = (Spinner) rootView.findViewById(R.id.tasklist);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.task_id, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String task_id = sharedPref.getString(getString(R.string.TASK_ID),"");
+        if(!task_id.equals("")){
+            final int _taskId = Integer.parseInt(task_id)+1;
+            taskList.setAdapter(adapter);
+            taskList.post(new Runnable() {
+                @Override
+                public void run() {
+                    taskList.setSelection(_taskId,true);
+                }
+            });
+            taskList.animate();
+            taskId = String.valueOf(_taskId);
+        }else{
+            taskList.setAdapter(adapter);
+        }
 
         mLayoutManager = new LinearLayoutManager(getActivity());
 
