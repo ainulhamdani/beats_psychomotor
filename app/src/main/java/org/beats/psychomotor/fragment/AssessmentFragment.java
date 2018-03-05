@@ -64,6 +64,8 @@ public class AssessmentFragment extends Fragment {
 
     public static CountDownTimer countDownTimer;
 
+    SharedPreferences sharedPref;
+
     public AssessmentFragment() {
     }
 
@@ -74,7 +76,7 @@ public class AssessmentFragment extends Fragment {
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         Bundle bundle = getArguments();
         gameObject = (Assessment)bundle.getSerializable("game");
-        SharedPreferences sharedPref = getActivity().getSharedPreferences(
+        sharedPref = getActivity().getSharedPreferences(
                 getString(R.string.shared_key), Context.MODE_PRIVATE);
         username = sharedPref.getString(getString(R.string.USERNAME),"");
         clientHandler = ClientFragment.clientHandler;
@@ -147,11 +149,13 @@ public class AssessmentFragment extends Fragment {
 //                paintView.setOnTouchListener(null);
                 MediaPlayer.create(getContext(), R.raw.end).start();
                 timer.setText("done!");
-                HostFragment.saveEndAssessment();
+                if(serverHandler!=null){
+                    HostFragment.saveEndAssessment();
+                }
                 showNoticeDialog();
             }
 
-        }.start();
+        };
 
         timeoutDialog = new TimeoutDialog();
         timeoutDialog.setCancelable(false);
@@ -177,6 +181,10 @@ public class AssessmentFragment extends Fragment {
         });
         MediaPlayer.create(getContext(), R.raw.start).start();
 
+        timer.setText("Training");
+        if(gameObject.taskId!=0){
+            countDownTimer.start();
+        }
         return rootView;
     }
 
